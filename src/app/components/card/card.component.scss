@@ -1,0 +1,6 @@
+@import "./card-variables";
+.card {
+  background-color: white;
+  padding: $card-padding;
+  border-radius: $card-border-radius;
+}
