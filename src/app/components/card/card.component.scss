@@ -1,6 +1,8 @@
 @import "./card-variables";
-.card {
+.card-main {
   background-color: white;
   padding: $card-padding;
   border-radius: $card-border-radius;
+  overflow: hidden;
+  min-height: 100px;
 }
