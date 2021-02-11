@@ -35,6 +35,12 @@
     overflow: auto;
   }
 
+  &__title-link {
+    &:visited {
+      color: $primary-blue;
+    }
+  }
+
   &__footer {
     flex: none;
     background-color: $white;
