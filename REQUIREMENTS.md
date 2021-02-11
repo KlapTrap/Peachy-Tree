@@ -12,17 +12,17 @@ The high level requirement is to transfer money from an account and showing past
 
 ## Requirements
 
-1. To assist you with the following requirements, we provide a __UI components library__. You will need to use this library where specified in the user stories.
+1. To assist you with the following requirements, we provide a **UI components library**. You will need to use this library where specified in the user stories.
 2. **Do not** make any changes to the UI components library.
 3. Read all user stories carefully and implement them as per the acceptance criteria.
 
-Good luck! 
+Good luck!
 
-### User story #1 
+### User story #1
 
 _As a product owner, I should see a consistent layout where I can view the header with my bank's logo and the footer._
 
-__Acceptance criteria:__
+**Acceptance criteria:**
 
 1. Final layout should match with the designs provided
 2. Header and footer should be visible with the Peachtree Bank logo
@@ -32,20 +32,20 @@ __Acceptance criteria:__
 
 _As a user, I should be able to transfer money from my account using a Transfer Money Form._
 
-__Acceptance criteria:__
+**Acceptance criteria:**
 
 1. Final layout should match with the designs provided
 2. "From account" field should be prefilled with my account details and disabled.
 3. There should not be any validations on "To account" input field except it is a mandatory field.
 4. Following field validations should exist on "Amount" input field
 
-    a. It is a mandatory field
+   a. It is a mandatory field
 
-    b. Negative numbers are not allowed
+   b. Negative numbers are not allowed
 
-    c. Decimals are permitted
+   c. Decimals are permitted
 
-    b. It should not allow amount below the total balance of -€500
+   b. It should not allow amount below the total balance of -€500
 
 5. Submitting form should open a modal to review transfer(check User Story #3).
 6. Use UI Component (submit button)
@@ -54,7 +54,7 @@ __Acceptance criteria:__
 
 _As a user, I should be able to review my transfer before submitting it._
 
-__Acceptance criteria:__
+**Acceptance criteria:**
 
 1. Final layout should match with the designs provided
 2. Modal should close when a user submits the transfer or cancels it.
@@ -66,7 +66,7 @@ __Acceptance criteria:__
 
 _As a user, I should be able to view a list of historical transactions in an ordered list._
 
-__Acceptance criteria:__
+**Acceptance criteria:**
 
 1. Final layout should match with the designs provided
 2. You should fetch the initial list of transactions from [this location](https://r9vdzv10vd.execute-api.eu-central-1.amazonaws.com/dev/transactions)
@@ -78,7 +78,7 @@ __Acceptance criteria:__
 
 _As a user, I should be able to filter my transactions based on merchant name._
 
-__Acceptance criteria:__
+**Acceptance criteria:**
 
 1. Final layout should match with the designs provided
 2. Filtering should be done only by merchant name
@@ -89,7 +89,7 @@ __Acceptance criteria:__
 
 _As a developer, I want to have unit tests & linting in place._
 
-__Acceptance criteria:__
+**Acceptance criteria:**
 
 1. Use Angular's OOTB lint configuration
 2. Should add unit tests for custom logic(components, services or pipes) added
