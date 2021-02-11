@@ -1,0 +1,11 @@
+@import "../../../vendor/bb-ui/styles/vars";
+.transaction-page {
+  display: flex;
+  &__transaction {
+    flex: 1;
+  }
+  &__transaction-list {
+    flex: 2;
+    margin-left: $large-spacing;
+  }
+}
