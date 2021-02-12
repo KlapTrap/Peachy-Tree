@@ -1,9 +1,11 @@
 <app-page-wrapper>
   <section class="transaction-page">
-    <app-card class="transaction-page__transaction">
-      <app-card-header><i class="lni lni-cart"></i>Hello</app-card-header>
-      this is content
-    </app-card>
+    <app-make-transaction-panel
+      currency="€"
+      [accountBalance]="balance"
+      [accountName]="selectedAccountName"
+      class="transaction-page__transaction"
+    ></app-make-transaction-panel>
     <app-card class="transaction-page__transaction-list"></app-card>
   </section>
 </app-page-wrapper>

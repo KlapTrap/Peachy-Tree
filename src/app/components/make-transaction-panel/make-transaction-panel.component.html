@@ -1,0 +1,45 @@
+<app-card class="transaction-page__transaction">
+  <app-card-header>
+    <i class="lni lni-cart"></i>
+    <b>Make</b> Transfer
+  </app-card-header>
+  <form class="form-group">
+    <label for="from-account">From Account</label>
+    <div class="input-group mb-3">
+      <input
+        disabled
+        type="text"
+        class="form-control"
+        name="from-account"
+        [placeholder]="currentAccountMessage$ | async"
+        aria-label="From Account"
+      />
+    </div>
+    <label for="to-account">To Account</label>
+    <div class="input-group mb-3">
+      <input
+        type="text"
+        class="form-control"
+        name="to-account"
+        placeholder="type an account name"
+        aria-label="To Account"
+      />
+    </div>
+    <label for="amount">Amount</label>
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <span class="input-group-text" id="currency-symbol">{{
+          currency$$ | async
+        }}</span>
+      </div>
+      <input
+        type="text"
+        class="form-control"
+        name="amount"
+        placeholder="specify the amount"
+        aria-label="Transfer Amount"
+        aria-describedby="currency-symbol"
+      />
+    </div>
+  </form>
+</app-card>
