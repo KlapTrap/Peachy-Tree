@@ -1,5 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 @import "./vendor/bb-ui/styles/vars";
+@import "bootstrap";
+
 html,
 body {
   height: 100%;
@@ -9,4 +11,20 @@ body {
   label {
     margin-bottom: $medium-spacing;
   }
+}
+$primary-color: #ec7031;
+.btn-primary {
+  @include button-variant(
+    $primary-color,
+    darken($primary-color, 7.5%),
+    darken($primary-color, 10%),
+    lighten($primary-color, 5%),
+    lighten($primary-color, 10%),
+    darken($primary-color, 30%)
+  );
+}
+
+input::placeholder {
+  font-style: italic;
+  font-size: 14px;
 }
