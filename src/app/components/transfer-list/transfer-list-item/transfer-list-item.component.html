@@ -1,0 +1,23 @@
+<app-transaction-item class="transfer-item">
+  <div
+    class="transfer-item__color"
+    [style.backgroundColor]="transfer.categoryCode"
+    data-test-hook="transactionColour"
+  ></div>
+  <div class="transfer-item__date" data-test-hook="transactionDate">
+    {{ getDateString(transfer.dates.valueDate) }}
+  </div>
+  <h6 class="transfer-item__name" data-test-hook="transactionMerchantName">
+    {{ transfer.merchant.name }}
+  </h6>
+  <div class="transfer-item__type" data-test-hook="transactionType">
+    {{ transfer.transaction.type }}
+  </div>
+  <div
+    class="transfer-item__amount"
+    [ngClass]="transfer.transaction.creditDebitIndicator"
+    data-test-hook="transactionAmount"
+  >
+    {{ buildAmountString(transfer) }}
+  </div>
+</app-transaction-item>

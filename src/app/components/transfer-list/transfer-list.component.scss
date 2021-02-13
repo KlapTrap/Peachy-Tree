@@ -1,0 +1,16 @@
+@import "../../../vendor/bb-ui/styles/vars";
+@import "bootstrap";
+.transfer-list {
+  padding: 0;
+  &__item {
+    list-style: none;
+    padding-bottom: $large-spacing;
+    & + & {
+      padding-top: $large-spacing;
+      border-top: 1px solid $gray-200;
+    }
+    :not(:last-of-type) {
+      padding-bottom: $large-spacing;
+    }
+  }
+}

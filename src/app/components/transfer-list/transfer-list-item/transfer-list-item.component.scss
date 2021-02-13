@@ -1,0 +1,36 @@
+@import "../../../../vendor/bb-ui/styles/vars";
+@import "bootstrap";
+.transfer-item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: $large-spacing;
+  &__color {
+    height: 100%;
+    width: $small-spacing;
+    position: absolute;
+    left: 0;
+  }
+  &__date {
+    flex: none;
+    width: 100px;
+  }
+  &__name {
+    margin-bottom: 0;
+  }
+  &__type {
+    opacity: 0.6;
+    font-size: 12px;
+    margin-top: -2px;
+  }
+  &__amount {
+    flex: 1;
+    text-align: end;
+    &.CRDT {
+      color: $green;
+    }
+    &.DBIT {
+      color: $red;
+    }
+  }
+}

@@ -1,0 +1,12 @@
+<app-card>
+  <app-card-header>
+    <i class="lni lni-list"></i>
+    Transaction <b>List</b>
+  </app-card-header>
+  <app-filter></app-filter>
+  <ul class="transfer-list">
+    <li class="transfer-list__item" *ngFor="let transfer of transfers">
+      <app-transfer-list-item [transfer]="transfer"></app-transfer-list-item>
+    </li>
+  </ul>
+</app-card>

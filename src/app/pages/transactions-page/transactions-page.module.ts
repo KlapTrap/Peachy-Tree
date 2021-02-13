@@ -8,6 +8,7 @@ import { CardModule } from 'src/app/components/card/card.module';
 import { MakeTransactionPanelModule } from 'src/app/components/make-transaction-panel/make-transaction-panel.module';
 import { BsModalService, ModalModule } from 'ngx-bootstrap/modal';
 import { ConfirmTransferModalContentModule } from 'src/app/components/confirm-transfer-modal-content/confirm-transfer-modal-content.module';
+import { TransferListModule } from 'src/app/components/transfer-list/transfer-list.module';
 
 @NgModule({
   declarations: [TransactionsPageComponent],
@@ -15,11 +16,12 @@ import { ConfirmTransferModalContentModule } from 'src/app/components/confirm-tr
   imports: [
     CommonModule,
     TransactionsPageRoutingModule,
+    ModalModule.forChild(),
     PageWrapperModule,
     CardModule,
     MakeTransactionPanelModule,
+    TransferListModule,
     ConfirmTransferModalContentModule,
-    ModalModule.forChild(),
   ],
 })
 export class TransactionsPageModule {}

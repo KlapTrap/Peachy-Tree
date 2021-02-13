@@ -9,6 +9,7 @@
   margin: -#{$card-padding} -#{$card-padding} $card-padding;
   padding: $card-padding;
   &__icon {
+    display: flex;
     margin-right: $medium-spacing;
     font-size: 20px;
   }
