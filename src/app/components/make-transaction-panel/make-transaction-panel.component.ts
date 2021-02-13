@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { combineLatest, Observable, ReplaySubject } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { TrasactionValidators } from 'src/app/validators/transaction.validators';
 
 @Component({
   selector: 'app-make-transaction-panel',
@@ -32,6 +33,11 @@ export class MakeTransactionPanelComponent {
   @Input() set accountBalance(accountBalance: number) {
     this.currentBalance = accountBalance;
     this.accountBalance$$.next(accountBalance);
+    this.form.controls.transferAmount.setValidators([
+      Validators.required,
+      Validators.min(1),
+      TrasactionValidators.balanceReduction(accountBalance, -500),
+    ]);
   }
 
   @Input() set currency(currency: '£' | '$' | '€') {

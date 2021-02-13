@@ -45,8 +45,14 @@
         aria-describedby="currency-symbol"
       />
       <span class="form-field-error">
-        <span> There is not enough balance </span>
-        <span> Please enter a valid amount </span>
+        <ng-container *ngIf="form.controls.transferAmount.errors as errors">
+          <div *ngIf="errors.balanceReduction">
+            There is not enough balance to make this transfer
+          </div>
+          <div *ngIf="!errors.balanceReduction">
+            Please enter a valid amount
+          </div>
+        </ng-container>
       </span>
     </div>
     <app-card-actions>

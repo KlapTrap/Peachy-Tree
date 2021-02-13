@@ -36,7 +36,8 @@ $primary-color: #ec7031;
   width: 100%;
 }
 
-.ng-touched.ng-invalid + .form-field-error {
+.ng-touched.ng-invalid + .form-field-error,
+.ng-dirty.ng-invalid + .form-field-error {
   display: block;
 }
 
