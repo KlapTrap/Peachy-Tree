@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./transactions-page.component.scss'],
 })
 export class TransactionsPageComponent implements OnInit {
-  public balance = 12.57;
+  public balance = 3036.53;
   public selectedAccountName = 'My Personal Account';
   constructor() {}
 

@@ -18,7 +18,7 @@
     <label for="to-account">To Account</label>
     <div class="input-group mb-3">
       <input
-        formControlName="toAccountName"
+        formControlName="to"
         type="text"
         class="form-control"
         name="to-account"
@@ -35,7 +35,7 @@
         }}</span>
       </div>
       <input
-        formControlName="transferAmount"
+        formControlName="amount"
         type="number"
         class="form-control"
         name="amount"
@@ -45,7 +45,7 @@
         aria-describedby="currency-symbol"
       />
       <span class="form-field-error">
-        <ng-container *ngIf="form.controls.transferAmount.errors as errors">
+        <ng-container *ngIf="form.controls.amount.errors as errors">
           <div *ngIf="errors.balanceReduction">
             There is not enough balance to make this transfer
           </div>

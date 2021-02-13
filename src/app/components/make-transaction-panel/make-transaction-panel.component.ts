@@ -1,9 +1,13 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { combineLatest, Observable, ReplaySubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { TrasactionValidators } from 'src/app/validators/transaction.validators';
-
+export interface TransferRequest {
+  from: string;
+  to: string;
+  amount: number;
+}
 @Component({
   selector: 'app-make-transaction-panel',
   templateUrl: './make-transaction-panel.component.html',
@@ -13,7 +17,6 @@ export class MakeTransactionPanelComponent {
   public currency$$ = new ReplaySubject<string>();
   public form = this.buildFormObject();
 
-  private currentBalance: number;
   private currentAccountName: string;
   private accountName$$ = new ReplaySubject<string>();
   private accountBalance$$ = new ReplaySubject<number>();
@@ -31,9 +34,8 @@ export class MakeTransactionPanelComponent {
   }
 
   @Input() set accountBalance(accountBalance: number) {
-    this.currentBalance = accountBalance;
     this.accountBalance$$.next(accountBalance);
-    this.form.controls.transferAmount.setValidators([
+    this.form.controls.amount.setValidators([
       Validators.required,
       Validators.min(1),
       TrasactionValidators.balanceReduction(accountBalance, -500),
@@ -44,9 +46,16 @@ export class MakeTransactionPanelComponent {
     this.currency$$.next(currency);
   }
 
+  @Output() transfer = new EventEmitter<TransferRequest>();
+
   public makeTransferRequest(): void {
     this.form.markAllAsTouched();
-    console.log(this.form);
+    if (this.form.valid) {
+      this.transfer.emit({
+        from: this.accountName,
+        ...this.form.getRawValue(),
+      });
+    }
   }
 
   private buildBalanceString(currency: string, balance: number): string {
@@ -76,9 +85,8 @@ export class MakeTransactionPanelComponent {
 
   private buildFormObject(): FormGroup {
     return this.formBuilder.group({
-      fromAccountName: this.formBuilder.control('', Validators.required),
-      toAccountName: this.formBuilder.control('', Validators.required),
-      transferAmount: this.formBuilder.control('', Validators.required),
+      to: this.formBuilder.control('', Validators.required),
+      amount: this.formBuilder.control('', Validators.required),
     });
   }
 }

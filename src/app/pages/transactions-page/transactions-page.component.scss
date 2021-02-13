@@ -3,6 +3,7 @@
   display: flex;
   &__transaction {
     flex: 1;
+    min-width: 350px;
   }
   &__transaction-list {
     flex: 2;
