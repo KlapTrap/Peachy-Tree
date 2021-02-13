@@ -50,6 +50,7 @@ export class MakeTransactionPanelComponent {
 
   public makeTransferRequest(): void {
     this.form.markAllAsTouched();
+    console.log(this.form);
     if (this.form.valid) {
       this.transfer.emit({
         from: this.accountName,
