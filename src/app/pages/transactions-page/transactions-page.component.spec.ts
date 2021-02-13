@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ModalModule } from 'ngx-bootstrap/modal';
 
 import { TransactionsPageComponent } from './transactions-page.component';
 
@@ -8,9 +9,9 @@ describe('TransactionsPageComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ TransactionsPageComponent ]
-    })
-    .compileComponents();
+      declarations: [TransactionsPageComponent],
+      imports: [ModalModule.forRoot()],
+    }).compileComponents();
   });
 
   beforeEach(() => {

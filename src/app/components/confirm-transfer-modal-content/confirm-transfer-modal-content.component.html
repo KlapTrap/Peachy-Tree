@@ -1,0 +1,30 @@
+<div class="modal-header">
+  <h4 class="modal-title pull-left"><b>Review</b> Transfer</h4>
+  <button
+    type="button"
+    class="close pull-right"
+    aria-label="Close"
+    (click)="cancelTransfer()"
+  >
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <p><i>Are you ready to send out this transfer?</i></p>
+  <h5>It will be sent to account:</h5>
+  <p>{{ to }}</p>
+  <h5>With the amount of:</h5>
+  <p>{{ currency }}{{ amount }}</p>
+</div>
+<div class="modal-footer">
+  <button
+    type="button"
+    class="btn btn-outline-secondary"
+    (click)="cancelTransfer()"
+  >
+    Close
+  </button>
+  <button type="button" class="btn btn-primary" (click)="confirmTransfer()">
+    Send Transfer
+  </button>
+</div>

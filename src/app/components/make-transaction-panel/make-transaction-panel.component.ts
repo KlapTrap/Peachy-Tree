@@ -48,9 +48,11 @@ export class MakeTransactionPanelComponent {
   }
 
   @Output() transfer = new EventEmitter<TransferRequest>();
+
   public reset(): void {
     this.form.reset();
   }
+
   public makeTransferRequest(): void {
     this.form.markAllAsTouched();
     if (this.form.valid) {
