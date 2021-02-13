@@ -3,7 +3,7 @@
     <i class="lni lni-cart"></i>
     <b>Make</b> Transfer
   </app-card-header>
-  <form class="form-group">
+  <form class="form-group" [formGroup]="form" (submit)="makeTransferRequest()">
     <label for="from-account">From Account</label>
     <div class="input-group mb-3">
       <input
@@ -18,12 +18,14 @@
     <label for="to-account">To Account</label>
     <div class="input-group mb-3">
       <input
+        formControlName="toAccountName"
         type="text"
         class="form-control"
         name="to-account"
         placeholder="type an account name"
         aria-label="To Account"
       />
+      <span class="form-field-error"> This field is required </span>
     </div>
     <label for="amount">Amount</label>
     <div class="input-group mb-3">
@@ -33,13 +35,19 @@
         }}</span>
       </div>
       <input
-        type="text"
+        formControlName="transferAmount"
+        type="number"
         class="form-control"
         name="amount"
+        min="0"
         placeholder="specify the amount"
         aria-label="Transfer Amount"
         aria-describedby="currency-symbol"
       />
+      <span class="form-field-error">
+        <span> There is not enough balance </span>
+        <span> Please enter a valid amount </span>
+      </span>
     </div>
     <app-card-actions>
       <app-submit-button></app-submit-button>

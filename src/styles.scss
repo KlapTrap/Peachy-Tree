@@ -24,6 +24,22 @@ $primary-color: #ec7031;
   );
 }
 
+.ng-touched.ng-invalid {
+  @extend .is-invalid;
+}
+
+.form-field-error {
+  color: $red;
+  display: none;
+  font-size: 12px;
+  margin-top: 5px;
+  width: 100%;
+}
+
+.ng-touched.ng-invalid + .form-field-error {
+  display: block;
+}
+
 input::placeholder {
   font-style: italic;
   font-size: 14px;
