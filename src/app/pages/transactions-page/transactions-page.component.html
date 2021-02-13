@@ -4,6 +4,7 @@
       currency="€"
       [accountBalance]="balance"
       [accountName]="selectedAccountName"
+      (transfer)="showConfirmModal($event)"
       class="transaction-page__transaction"
     ></app-make-transaction-panel>
     <app-card class="transaction-page__transaction-list"></app-card>

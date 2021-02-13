@@ -48,10 +48,11 @@ export class MakeTransactionPanelComponent {
   }
 
   @Output() transfer = new EventEmitter<TransferRequest>();
-
+  public reset(): void {
+    this.form.reset();
+  }
   public makeTransferRequest(): void {
     this.form.markAllAsTouched();
-    console.log(this.form);
     if (this.form.valid) {
       this.transfer.emit({
         from: this.currentAccountName,

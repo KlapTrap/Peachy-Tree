@@ -30,6 +30,14 @@ function setFormInputValue(
   fixture.detectChanges();
 }
 
+function getFormInputValue(
+  fixture: ComponentFixture<MakeTransactionPanelComponent>,
+  name: string
+): any {
+  const form = fixture.componentInstance.form;
+  return form.controls[name].value;
+}
+
 describe('MakeTransactionPanelComponent', () => {
   let component: MakeTransactionPanelComponent;
   let fixture: ComponentFixture<MakeTransactionPanelComponent>;
@@ -96,8 +104,24 @@ describe('MakeTransactionPanelComponent', () => {
     fixture.detectChanges();
     submitForm(fixture);
     const { to, from, amount } = spy.calls.mostRecent().args[0];
+
     expect(from).toBe('My Account');
     expect(to).toBe('abc1234');
     expect(amount).toBe(20);
+  });
+
+  it('should reset transfer request panel', () => {
+    const spy = spyOn(component.transfer, 'emit');
+    component.accountBalance = 100;
+    component.accountName = 'My Account';
+    setFormInputValue(fixture, 'amount', 20);
+    setFormInputValue(fixture, 'to', 'abc1234');
+    fixture.detectChanges();
+    submitForm(fixture);
+    expect(spy.calls.count()).toBe(1);
+    spy.calls.reset();
+    component.reset();
+    submitForm(fixture);
+    expect(spy.calls.count()).toBe(0);
   });
 });
