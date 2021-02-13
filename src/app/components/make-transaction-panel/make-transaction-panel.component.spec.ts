@@ -86,4 +86,18 @@ describe('MakeTransactionPanelComponent', () => {
     submitForm(fixture);
     expect(spy.calls.count()).toBe(1);
   });
+
+  it('should emit correct transfer request', () => {
+    const spy = spyOn(component.transfer, 'emit');
+    component.accountBalance = 100;
+    component.accountName = 'My Account';
+    setFormInputValue(fixture, 'amount', 20);
+    setFormInputValue(fixture, 'to', 'abc1234');
+    fixture.detectChanges();
+    submitForm(fixture);
+    const { to, from, amount } = spy.calls.mostRecent().args[0];
+    expect(from).toBe('My Account');
+    expect(to).toBe('abc1234');
+    expect(amount).toBe(20);
+  });
 });

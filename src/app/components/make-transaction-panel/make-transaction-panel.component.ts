@@ -30,6 +30,7 @@ export class MakeTransactionPanelComponent {
   constructor(private formBuilder: FormBuilder) {}
 
   @Input() set accountName(accountName: string) {
+    this.currentAccountName = accountName;
     this.accountName$$.next(accountName);
   }
 
@@ -53,7 +54,7 @@ export class MakeTransactionPanelComponent {
     console.log(this.form);
     if (this.form.valid) {
       this.transfer.emit({
-        from: this.accountName,
+        from: this.currentAccountName,
         ...this.form.getRawValue(),
       });
     }
