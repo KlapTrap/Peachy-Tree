@@ -15,6 +15,7 @@ export class ConfirmTransferModalContentComponent implements OnDestroy {
   public confirmTransfer(): void {
     this.emitTransferMessage(true);
   }
+
   public cancelTransfer(): void {
     this.emitTransferMessage();
   }

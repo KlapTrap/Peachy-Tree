@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { ModalModule } from 'ngx-bootstrap/modal';
+import { BsModalRef, ModalModule } from 'ngx-bootstrap/modal';
 
 import { ConfirmTransferModalContentComponent } from './confirm-transfer-modal-content.component';
 import { ConfirmTransferModalContentModule } from './confirm-transfer-modal-content.module';
@@ -10,7 +10,8 @@ describe('ConfirmTransferModalContentComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ConfirmTransferModalContentModule, ModalModule.forRoot()],
+      imports: [ConfirmTransferModalContentModule],
+      providers: [BsModalRef],
     }).compileComponents();
   });
 
