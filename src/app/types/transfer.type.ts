@@ -1,4 +1,5 @@
 export interface Transfer {
+  date: Date;
   categoryCode: string;
   dates: {
     valueDate: number | string;
@@ -16,3 +17,4 @@ export interface Transfer {
     accountNumber: string;
   };
 }
+export type UnDatedTransfer = Omit<Transfer, 'date'>;
