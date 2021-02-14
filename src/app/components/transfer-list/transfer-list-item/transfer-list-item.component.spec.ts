@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { TransferListModule } from '../transfer-list.module';
 
 import { TransferListItemComponent } from './transfer-list-item.component';
 
@@ -8,9 +9,8 @@ describe('TransferListItemComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ TransferListItemComponent ]
-    })
-    .compileComponents();
+      imports: [TransferListModule],
+    }).compileComponents();
   });
 
   beforeEach(() => {

@@ -31,20 +31,13 @@ export class TransferListItemComponent implements OnInit {
     'Dec',
   ];
   public mapCurrencyCodeToSign(code: string): string {
+    console.log(code);
     return currencyCodeMap[code] || code;
   }
 
-  public getDateString(date: string | number): string {
-    const dateObject = new Date(date);
-    const monthString = this.months[dateObject.getMonth()];
-    const day = dateObject.getDate();
-    return `${monthString}. ${day}`;
-  }
-
-  public getTransactionTypeColor(date: string | number): string {
-    const dateObject = new Date(date);
-    const monthString = this.months[dateObject.getMonth()];
-    const day = dateObject.getDate();
+  public getDateString(date: Date): string {
+    const monthString = this.months[date.getMonth()];
+    const day = date.getDate();
     return `${monthString}. ${day}`;
   }
 

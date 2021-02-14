@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Transfer } from 'src/app/types/transfer.type';
 import { mockTransfers } from 'src/vendor/bb-ui/mock-data/transactions';
 
@@ -8,6 +8,11 @@ import { mockTransfers } from 'src/vendor/bb-ui/mock-data/transactions';
   styleUrls: ['./transfer-list.component.scss'],
 })
 export class TransferListComponent {
-  @Input() transfers: Transfer[] = mockTransfers.data;
+  @Input() transfers: Transfer[];
+  @Output() search = new EventEmitter<string>();
+
+  public changeSearch(search: string): void {
+    this.search.emit(search);
+  }
   constructor() {}
 }

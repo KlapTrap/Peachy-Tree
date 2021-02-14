@@ -5,6 +5,7 @@ import {
   MakeTransactionPanelComponent,
   TransferRequest,
 } from 'src/app/components/make-transaction-panel/make-transaction-panel.component';
+import { AccountService } from 'src/app/services/account.service';
 
 @Component({
   selector: 'app-transactions-page',
@@ -14,9 +15,10 @@ import {
 export class TransactionsPageComponent implements OnInit {
   @ViewChild('transactionPanel')
   transactionPanel: MakeTransactionPanelComponent;
-  public currency = '€';
-  public balance = 3036.53;
-  public selectedAccountName = 'My Personal Account';
+  public currency = this.accountService.currancySymbol;
+  public balance$ = this.accountService.balance$;
+  public transfers$ = this.accountService.transfers$;
+  public selectedAccountName = this.accountService.name;
 
   public showConfirmModal(request: TransferRequest): void {
     const initialState = {
@@ -34,11 +36,18 @@ export class TransactionsPageComponent implements OnInit {
     });
   }
 
-  public makeTransfer(request: TransferRequest): void {
-    console.log(request);
+  public makeTransfer({ to, amount }: TransferRequest): void {
     this.transactionPanel.reset();
+    this.accountService.makeTransfer(to, amount);
   }
 
-  constructor(private modalService: BsModalService) {}
+  public search(search: string): void {
+    this.accountService.search(search);
+  }
+
+  constructor(
+    private modalService: BsModalService,
+    private accountService: AccountService
+  ) {}
   ngOnInit(): void {}
 }

@@ -2,13 +2,15 @@
   <section class="transaction-page">
     <app-make-transaction-panel
       [currency]="currency"
-      [accountBalance]="balance"
+      [accountBalance]="balance$ | async"
       [accountName]="selectedAccountName"
       (transfer)="showConfirmModal($event)"
       #transactionPanel
       class="transaction-page__transaction"
     ></app-make-transaction-panel>
     <app-transfer-list
+      (search)="search($event)"
+      [transfers]="transfers$ | async"
       class="transaction-page__transaction-list"
     ></app-transfer-list>
   </section>
