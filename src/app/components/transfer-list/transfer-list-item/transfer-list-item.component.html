@@ -5,7 +5,7 @@
     data-test-hook="transactionColour"
   ></div>
   <div class="transfer-item__date" data-test-hook="transactionDate">
-    {{ getDateString(transfer.date) }}
+    {{ transfer.date | date: "MMM. d" }}
   </div>
   <h6 class="transfer-item__name" data-test-hook="transactionMerchantName">
     {{ transfer.merchant.name }}

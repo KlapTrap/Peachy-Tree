@@ -1,5 +1,6 @@
 export interface Transfer {
   date: Date;
+  currencySymbol: string;
   categoryCode: string;
   dates: {
     valueDate: number | string;
@@ -10,11 +11,15 @@ export interface Transfer {
       currencyCode: string;
     };
     type: string;
-    creditDebitIndicator: string;
+    creditDebitIndicator: CreditDebitIndicator | string;
   };
   merchant: {
     name: string;
     accountNumber: string;
   };
 }
-export type UnDatedTransfer = Omit<Transfer, 'date'>;
+export type PreProcessTransfer = Omit<Transfer, 'date' | 'currencySymbol'>;
+export enum CreditDebitIndicator {
+  credit = 'CRDT',
+  debit = 'DBIT',
+}

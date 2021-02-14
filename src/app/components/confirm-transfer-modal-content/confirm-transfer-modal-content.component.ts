@@ -9,7 +9,7 @@ import { BsModalRef } from 'ngx-bootstrap/modal';
 export class ConfirmTransferModalContentComponent implements OnDestroy {
   public to: string;
   public amount: number;
-  public currency: string;
+  public currencySymbol: string;
   public makeTransfer = new EventEmitter<boolean>();
 
   public confirmTransfer(): void {

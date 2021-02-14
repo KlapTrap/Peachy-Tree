@@ -28,7 +28,7 @@ export class MakeTransactionPanelComponent {
   );
 
   constructor(private formBuilder: FormBuilder) {}
-
+  @Input() minimumBalance = -500;
   @Input() set accountName(accountName: string) {
     this.currentAccountName = accountName;
     this.accountName$$.next(accountName);
@@ -39,7 +39,10 @@ export class MakeTransactionPanelComponent {
     this.form.controls.amount.setValidators([
       Validators.required,
       Validators.min(1),
-      TrasactionValidators.balanceReduction(accountBalance, -500),
+      TrasactionValidators.balanceReduction(
+        accountBalance,
+        this.minimumBalance
+      ),
     ]);
   }
 

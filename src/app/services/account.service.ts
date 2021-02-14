@@ -1,3 +1,4 @@
+import { getCurrencySymbol } from '@angular/common';
 import { Injectable } from '@angular/core';
 import {
   BehaviorSubject,
@@ -7,45 +8,75 @@ import {
 } from 'rxjs';
 import { map, shareReplay, startWith, take } from 'rxjs/operators';
 import { mockTransfers } from 'src/vendor/bb-ui/mock-data/transactions';
-import { Transfer, UnDatedTransfer } from '../types/transfer.type';
+import {
+  CreditDebitIndicator,
+  Transfer,
+  PreProcessTransfer,
+} from '../types/transfer.type';
 import { validBalanceReduction } from '../validators/transaction.validators-helpers';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AccountService {
-  private transferStore = this.addDateToTransfers(mockTransfers.data);
+  private transferStore = [];
   private transfers$$ = new BehaviorSubject<Transfer[]>(this.transferStore);
-  private balance$$ = new BehaviorSubject<number>(1246.32);
+  private balance$$ = new BehaviorSubject<number>(1353.64);
   private search$$ = new ReplaySubject<string>();
   public transfers$ = this.buildTransfersObservable();
   public balance$ = this.balance$$.asObservable().pipe(shareReplay(1));
 
   readonly name = 'My Personal Account';
   readonly currencyCode = 'EUR';
-  readonly currancySymbol = '€';
+  readonly currencySymbol = getCurrencySymbol(this.currencyCode, 'narrow');
   readonly minimumBalance = -500;
 
   public search(search: string): void {
     this.search$$.next(search);
   }
 
-  public makeTransfer(to: string, amount: number): void {
+  public setBalance(newBalance: number): void {
+    this.balance$$.next(+newBalance.toFixed(2));
+  }
+
+  public setTransfers(transfers: PreProcessTransfer[]): void {
+    this.transfers$$.next(
+      transfers.map((transfer) => this.processTransfer(transfer))
+    );
+  }
+
+  public getTransfers(): void {
+    this.setTransfers([...mockTransfers.data]);
+  }
+
+  public makeOnlineTransfer(
+    to: string,
+    amount: number,
+    currencyCode: string
+  ): void {
     this.balance$.pipe(take(1)).subscribe((balance) => {
       if (validBalanceReduction(balance, amount, this.minimumBalance)) {
-        const result = balance - amount;
-        this.balance$$.next(+result.toFixed(2));
-        this.storeTransfer(to, amount);
+        this.setBalance(balance - amount);
+        this.storeTransfer(to, amount, currencyCode);
       }
     });
   }
-  private storeTransfer(to: string, amount: number): void {
-    this.transferStore = [
-      this.buildOnlineTransfer(to, amount),
-      ...this.transferStore,
-    ];
+
+  private storeTransfer(
+    to: string,
+    amount: number,
+    currencyCode: string
+  ): void {
+    const preProcessTransfer = this.buildOnlineTransfer(
+      to,
+      amount,
+      currencyCode
+    );
+    const processedTransfer = this.processTransfer(preProcessTransfer);
+    this.transferStore = [processedTransfer, ...this.transferStore];
     this.transfers$$.next(this.transferStore);
   }
+
   private buildTransfersObservable(): Observable<Transfer[]> {
     return combineLatest([
       this.transfers$$.pipe(map((transfers) => this.sortTransfers(transfers))),
@@ -62,16 +93,21 @@ export class AccountService {
     if (!searchTerm) {
       return transfers;
     }
+    const lowerCaseSearch = searchTerm.toLowerCase();
     return transfers.filter((transfer) =>
-      transfer.merchant.name.includes(searchTerm)
+      transfer.merchant.name.toLowerCase().includes(lowerCaseSearch)
     );
   }
 
-  private addDateToTransfers(transfers: UnDatedTransfer[]): Transfer[] {
-    return transfers.map((transfer) => ({
+  private processTransfer(transfer: PreProcessTransfer): Transfer {
+    return {
       ...transfer,
+      currencySymbol: getCurrencySymbol(
+        transfer.transaction.amountCurrency.currencyCode,
+        'narrow'
+      ),
       date: new Date(transfer.dates.valueDate),
-    }));
+    };
   }
 
   private sortTransfers(transfers: Transfer[]): Transfer[] {
@@ -88,13 +124,15 @@ export class AccountService {
     });
   }
 
-  private buildOnlineTransfer(to: string, amount: number): Transfer {
-    const date = new Date();
+  private buildOnlineTransfer(
+    to: string,
+    amount: number,
+    currencyCode: string
+  ): PreProcessTransfer {
     return {
-      date,
       categoryCode: '#12a580',
       dates: {
-        valueDate: date.getTime(),
+        valueDate: new Date().getTime(),
       },
       merchant: {
         accountNumber: to,
@@ -102,14 +140,12 @@ export class AccountService {
       },
       transaction: {
         amountCurrency: {
-          amount: amount.toString(),
-          currencyCode: this.currencyCode,
+          amount,
+          currencyCode,
         },
         type: 'Online Transfer',
-        creditDebitIndicator: 'DBIT',
+        creditDebitIndicator: CreditDebitIndicator.debit,
       },
     };
   }
-
-  constructor() {}
 }

@@ -1,9 +1,10 @@
 <app-page-wrapper>
   <section class="transaction-page">
     <app-make-transaction-panel
-      [currency]="currency"
+      [currency]="currencySymbol"
       [accountBalance]="balance$ | async"
       [accountName]="selectedAccountName"
+      [minimumBalance]="minimumBalance"
       (transfer)="showConfirmModal($event)"
       #transactionPanel
       class="transaction-page__transaction"

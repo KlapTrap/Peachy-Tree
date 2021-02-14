@@ -6,6 +6,7 @@ import {
   TransferRequest,
 } from 'src/app/components/make-transaction-panel/make-transaction-panel.component';
 import { AccountService } from 'src/app/services/account.service';
+import { mockTransfers } from 'src/vendor/bb-ui/mock-data/transactions';
 
 @Component({
   selector: 'app-transactions-page',
@@ -15,7 +16,9 @@ import { AccountService } from 'src/app/services/account.service';
 export class TransactionsPageComponent implements OnInit {
   @ViewChild('transactionPanel')
   transactionPanel: MakeTransactionPanelComponent;
-  public currency = this.accountService.currancySymbol;
+
+  public minimumBalance = this.accountService.minimumBalance;
+  public currencySymbol = this.accountService.currencySymbol;
   public balance$ = this.accountService.balance$;
   public transfers$ = this.accountService.transfers$;
   public selectedAccountName = this.accountService.name;
@@ -24,7 +27,7 @@ export class TransactionsPageComponent implements OnInit {
     const initialState = {
       to: request.to,
       amount: request.amount,
-      currency: this.currency,
+      currencySymbol: this.currencySymbol,
     };
     const modal = this.modalService.show(ConfirmTransferModalContentComponent, {
       initialState,
@@ -38,7 +41,11 @@ export class TransactionsPageComponent implements OnInit {
 
   public makeTransfer({ to, amount }: TransferRequest): void {
     this.transactionPanel.reset();
-    this.accountService.makeTransfer(to, amount);
+    this.accountService.makeOnlineTransfer(
+      to,
+      amount,
+      this.accountService.currencyCode
+    );
   }
 
   public search(search: string): void {
@@ -49,5 +56,8 @@ export class TransactionsPageComponent implements OnInit {
     private modalService: BsModalService,
     private accountService: AccountService
   ) {}
-  ngOnInit(): void {}
+
+  ngOnInit(): void {
+    this.accountService.getTransfers();
+  }
 }
