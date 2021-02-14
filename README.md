@@ -8,3 +8,4 @@ Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app w
 2. Make it more responsive.
 3. Fetch real data.
 4. Test other browsers - Devloped and Tested on Chrome only
+5. Better match the designs - Use correct font, etc.
