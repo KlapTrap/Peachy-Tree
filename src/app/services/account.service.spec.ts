@@ -54,7 +54,10 @@ describe('AccountService', () => {
 
   it('should update transfers on transfer', (done) => {
     service.setBalance(500);
-    service.transfers$.pipe(skip(1), first()).subscribe(([transfer]) => {
+    service.setTransfers([getSearchTestTransfer('Hello')]);
+    service.transfers$.pipe(skip(1), first()).subscribe((transfers) => {
+      const [transfer] = transfers;
+      expect(transfers.length).toBe(2);
       expect(transfer.transaction.creditDebitIndicator).toBe(
         CreditDebitIndicator.debit
       );

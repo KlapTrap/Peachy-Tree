@@ -19,8 +19,7 @@ import { validBalanceReduction } from '../validators/transaction.validators-help
   providedIn: 'root',
 })
 export class AccountService {
-  private transferStore = [];
-  private transfers$$ = new BehaviorSubject<Transfer[]>(this.transferStore);
+  private transfers$$ = new BehaviorSubject<Transfer[]>([]);
   private balance$$ = new BehaviorSubject<number>(1353.64);
   private search$$ = new ReplaySubject<string>();
   public transfers$ = this.buildTransfersObservable();
@@ -73,8 +72,7 @@ export class AccountService {
       currencyCode
     );
     const processedTransfer = this.processTransfer(preProcessTransfer);
-    this.transferStore = [processedTransfer, ...this.transferStore];
-    this.transfers$$.next(this.transferStore);
+    this.transfers$$.next([processedTransfer, ...this.transfers$$.value]);
   }
 
   private buildTransfersObservable(): Observable<Transfer[]> {
