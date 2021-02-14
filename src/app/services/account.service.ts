@@ -40,27 +40,8 @@ export class AccountService {
     });
   }
   private storeTransfer(to: string, amount: number): void {
-    const date = new Date();
     this.transferStore = [
-      {
-        date,
-        categoryCode: '#12a580',
-        dates: {
-          valueDate: date.getTime(),
-        },
-        merchant: {
-          accountNumber: to,
-          name: to,
-        },
-        transaction: {
-          amountCurrency: {
-            amount: amount.toString(),
-            currencyCode: this.currencyCode,
-          },
-          type: 'Online Transfer',
-          creditDebitIndicator: 'DBIT',
-        },
-      },
+      this.buildOnlineTransfer(to, amount),
       ...this.transferStore,
     ];
     this.transfers$$.next(this.transferStore);
@@ -106,5 +87,29 @@ export class AccountService {
       return 0;
     });
   }
+
+  private buildOnlineTransfer(to: string, amount: number): Transfer {
+    const date = new Date();
+    return {
+      date,
+      categoryCode: '#12a580',
+      dates: {
+        valueDate: date.getTime(),
+      },
+      merchant: {
+        accountNumber: to,
+        name: to,
+      },
+      transaction: {
+        amountCurrency: {
+          amount: amount.toString(),
+          currencyCode: this.currencyCode,
+        },
+        type: 'Online Transfer',
+        creditDebitIndicator: 'DBIT',
+      },
+    };
+  }
+
   constructor() {}
 }
