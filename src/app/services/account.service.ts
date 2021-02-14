@@ -80,7 +80,8 @@ export class AccountService {
       this.transfers$$.pipe(map((transfers) => this.sortTransfers(transfers))),
       this.search$$.pipe(startWith('')),
     ]).pipe(
-      map(([transfers, search]) => this.filterBySearchTerm(transfers, search))
+      map(([transfers, search]) => this.filterBySearchTerm(transfers, search)),
+      shareReplay(1)
     );
   }
 

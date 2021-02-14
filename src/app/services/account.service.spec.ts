@@ -91,4 +91,24 @@ describe('AccountService', () => {
     });
     service.search('He');
   });
+
+  it('Adding transaction should while filtering - match', (done) => {
+    service.setTransfers([getSearchTestTransfer('Hello')]);
+    service.search('He');
+    service.makeOnlineTransfer('hello123', 1, 'EUR');
+    service.transfers$.pipe(skip(1), first()).subscribe((transfer) => {
+      expect(transfer.length).toBe(2);
+      done();
+    });
+  });
+
+  it('Adding transaction should while filtering - no match', (done) => {
+    service.setTransfers([getSearchTestTransfer('Hello')]);
+    service.search('He');
+    service.makeOnlineTransfer('Oopsie', 1, 'EUR');
+    service.transfers$.pipe(skip(1), first()).subscribe((transfer) => {
+      expect(transfer.length).toBe(1);
+      done();
+    });
+  });
 });
