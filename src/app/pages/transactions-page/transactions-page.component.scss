@@ -1,12 +1,18 @@
 @import "src/vendor/bb-ui/styles/vars";
 .transaction-page {
   display: flex;
+  margin-bottom: $large-spacing;
+  flex-wrap: wrap;
+  &__transaction,
+  &__transaction-list {
+    padding: $medium-spacing;
+  }
   &__transaction {
     flex: 1;
     min-width: 350px;
   }
   &__transaction-list {
     flex: 2;
-    margin-left: $large-spacing;
+    min-width: 450px;
   }
 }
