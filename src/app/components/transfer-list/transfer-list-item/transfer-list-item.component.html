@@ -1,4 +1,4 @@
-<app-transaction-item class="transfer-item">
+<app-transaction-item *ngIf="transfer" class="transfer-item">
   <div
     class="transfer-item__color"
     [style.backgroundColor]="transfer.categoryCode"

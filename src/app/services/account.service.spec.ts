@@ -29,7 +29,7 @@ function getSearchTestTransfer(name: string): PreProcessTransfer {
   };
 }
 
-fdescribe('AccountService', () => {
+describe('AccountService', () => {
   let service: AccountService;
 
   beforeEach(() => {
