@@ -1,8 +1,10 @@
 @import "./card-variables";
 .panel-main {
   background-color: white;
-  padding: $card-padding;
   border-radius: $card-border-radius;
   overflow: hidden;
   min-height: 100px;
+  &__content {
+    padding: $card-padding;
+  }
 }
