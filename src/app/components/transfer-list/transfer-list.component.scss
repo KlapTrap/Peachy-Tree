@@ -10,8 +10,8 @@
       padding-top: $large-spacing;
       border-top: 1px solid $gray-200;
     }
-    :not(:last-of-type) {
-      padding-bottom: $large-spacing;
+    &:last-of-type {
+      padding-bottom: 0;
     }
   }
 }
